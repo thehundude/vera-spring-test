@@ -1,0 +1,82 @@
+{
+	"variables": [],
+	"info": {
+		"name": "VERA",
+		"_postman_id": "e7f2d87a-b2aa-2b3a-9b23-2423df34ad74",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "add curricula",
+			"request": {
+				"url": "http://localhost:8080/curriculum/add",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"program\": \"General Medicine\",\n\t\"year\": \"2014\",\n\t\"url\": \"http://www.test.url\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get curriculum",
+			"request": {
+				"url": "http://localhost:8080/curriculum",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "update curricula url",
+			"request": {
+				"url": "http://localhost:8080/curriculum/update",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"program\": \"General Medicine\",\n\t\"year\": 2016,\n\t\"url\": \"http://www.2016.url\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "delete curricula",
+			"request": {
+				"url": "http://localhost:8080/curriculum/delete",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"program\": \"General Medicine\",\n    \"year\": 2014,\n    \"url\": \"http://www.test.url\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
