@@ -1,6 +1,6 @@
 package hu.rt.veradb.service;
 
-import hu.rt.veradb.data.Curricula;
+import hu.rt.veradb.data.Curriculum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,43 +14,43 @@ import java.util.List;
 @Service
 public class CurriculumService {
 
-    private static class CurriculumRowMapper implements RowMapper<Curricula> {
+    private static class CurriculumRowMapper implements RowMapper<Curriculum> {
         @Override
-        public Curricula mapRow(final ResultSet resultSet, final int rowNum) throws SQLException {
-            final Curricula curricula = new Curricula();
-            curricula.setProgram(resultSet.getString("program"));
-            curricula.setYear(resultSet.getInt("year"));
-            curricula.setUrl(resultSet.getString("url"));
-            return curricula;
+        public Curriculum mapRow(final ResultSet resultSet, final int rowNum) throws SQLException {
+            final Curriculum curriculum = new Curriculum();
+            curriculum.setProgram(resultSet.getString("program"));
+            curriculum.setYear(resultSet.getInt("year"));
+            curriculum.setUrl(resultSet.getString("url"));
+            return curriculum;
         }
     }
 
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public List<Curricula> getCurriculum() {
+    public List<Curriculum> getCurricula() {
         final String query = "SELECT * FROM curriculum ORDER BY program, year";
-        List<Curricula> curriculaList = jdbcTemplate.query(query, new CurriculumRowMapper());
-        return curriculaList;
+        List<Curriculum> curriculumList = jdbcTemplate.query(query, new CurriculumRowMapper());
+        return curriculumList;
     }
 
     @Transactional
-    public void addCurricula(Curricula curricula) {
+    public void addCurriculum(Curriculum curriculum) {
         final String query = "INSERT INTO curriculum (program, year, url) VALUES (?, ?, ?)";
-        jdbcTemplate.update(query, curricula.getProgram(), curricula.getYear(), curricula.getUrl());
+        jdbcTemplate.update(query, curriculum.getProgram(), curriculum.getYear(), curriculum.getUrl());
     }
 
     @Transactional
-    public void updateCurricula(Curricula curricula) {
-        final String query = "UPDATE curriculum SET url = ? WHERE program = '" + curricula.getProgram() +
-                "' AND year = '" + curricula.getYear() + "'";
-        jdbcTemplate.update(query, curricula.getUrl());
+    public void updateCurriculum(Curriculum curriculum) {
+        final String query = "UPDATE curriculum SET url = ? WHERE program = '" + curriculum.getProgram() +
+                "' AND year = '" + curriculum.getYear() + "'";
+        jdbcTemplate.update(query, curriculum.getUrl());
     }
 
     @Transactional
-    public void deleteCurricula(Curricula curricula) {
-        final String query = "DELETE FROM curriculum WHERE program = '" + curricula.getProgram() +
-                "' AND year = '" + curricula.getYear() + "' AND url = '" + curricula.getUrl() + "'";
+    public void deleteCurriculum(Curriculum curriculum) {
+        final String query = "DELETE FROM curriculum WHERE program = '" + curriculum.getProgram() +
+                "' AND year = '" + curriculum.getYear() + "' AND url = '" + curriculum.getUrl() + "'";
         jdbcTemplate.update(query);
     }
 }

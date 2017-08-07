@@ -1,6 +1,6 @@
 package hu.rt.veradb.data;
 
-public class Curricula {
+public class Curriculum {
     private String program;
     private int year;
     private String url;
