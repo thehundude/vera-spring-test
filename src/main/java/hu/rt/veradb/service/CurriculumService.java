@@ -7,9 +7,11 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.zip.CRC32;
 
 @Service
 public class CurriculumService {
@@ -35,9 +37,21 @@ public class CurriculumService {
     }
 
     @Transactional
-    public void addCurriculum(Curriculum curriculum) {
-        final String query = "INSERT INTO curriculum (program, year, url) VALUES (?, ?, ?)";
-        jdbcTemplate.update(query, curriculum.getProgram(), curriculum.getYear(), curriculum.getUrl());
+    public String addCurriculum(Curriculum curriculum) {
+        String string = "";
+        List<Curriculum> curriculumList = getCurricula();
+        for (int i = 0; i < curriculumList.size(); i++) {
+            if (curriculum.getProgram() == curriculumList.get(i).getProgram() && curriculum.getYear() ==
+                    curriculumList.get(i).getYear() && curriculum.getUrl() == curriculumList.get(i).getUrl()) {
+                string = "<p>Ilyen kurrikulum már létezik!</p>";
+            }
+            else{
+                final String query = "INSERT INTO curriculum (program, year, url) VALUES (?, ?, ?)";
+                jdbcTemplate.update(query, curriculum.getProgram(), curriculum.getYear(), curriculum.getUrl());
+                string = "<p>Kurrikulum hozzáadva</p>";
+            }
+        }
+        return string;
     }
 
     @Transactional
